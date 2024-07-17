@@ -16,14 +16,17 @@ categories = ["algorithms", "concurrency", "data-structures"]
 
 [features]
 default = ["std"]
+icp = ["icps"]
 
 # Enable to use APIs that require `std`.
 # This is enabled by default.
 #
 # NOTE: Disabling `std` feature is not supported yet.
 std = ["crossbeam-utils/std"]
+icps = ["crossbeam-utils/icp", "ic-time"]
 
 [dependencies]
+ic-time = { version = "0.1.0", optional = true }
 crossbeam-utils = { version = "0.8.18", path = "../crossbeam-utils", default-features = false }
 
 [dev-dependencies]

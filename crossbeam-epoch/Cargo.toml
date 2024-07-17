@@ -16,10 +16,12 @@ categories = ["concurrency", "memory-management", "no-std"]
 
 [features]
 default = ["std"]
+icp = ["icps"]
 
 # Enable to use APIs that require `std`.
 # This is enabled by default.
 std = ["alloc", "crossbeam-utils/std"]
+icps = ["crossbeam-utils/icp", "ic-time"]
 
 # Enable to use APIs that require `alloc`.
 # This is enabled by default and also enabled if the `std` feature is enabled.
@@ -34,6 +36,7 @@ alloc = []
 loom = ["loom-crate", "crossbeam-utils/loom"]
 
 [dependencies]
+ic-time = { version = "0.1.0", optional = true }
 crossbeam-utils = { version = "0.8.18", path = "../crossbeam-utils", default-features = false }
 
 # Enable the use of loom for concurrency testing.

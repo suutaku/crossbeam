@@ -17,7 +17,7 @@ exclude = ["/.*", "/ci", "/tools"]
 
 [features]
 default = ["std"]
-icp = []
+icp = ["icps"]
 
 # Enable to use APIs that require `std`.
 # This is enabled by default.
@@ -30,11 +30,21 @@ std = [
   "crossbeam-utils/std",
 ]
 
+icps = [
+  "alloc",
+  "crossbeam-channel/icp",
+  "crossbeam-deque/icp",
+  "crossbeam-epoch/icp",
+  "crossbeam-queue/icp",
+  "crossbeam-utils/icp",
+]
+
 # Enable to use APIs that require `alloc`.
 # This is enabled by default and also enabled if the `std` feature is enabled.
 alloc = ["crossbeam-epoch/alloc", "crossbeam-queue/alloc"]
 
 [dependencies]
+
 crossbeam-channel = { version = "0.5.10", path = "crossbeam-channel", default-features = false, optional = true }
 crossbeam-deque = { version = "0.8.4", path = "crossbeam-deque", default-features = false, optional = true }
 crossbeam-epoch = { version = "0.9.17", path = "crossbeam-epoch", default-features = false, optional = true }
@@ -44,8 +54,6 @@ crossbeam-utils = { version = "0.8.18", path = "crossbeam-utils", default-featur
 [dev-dependencies]
 rand = "0.8"
 
-[workspace.dependencies]
-ic-time = { version = "0.1.0" }
 
 [lints]
 workspace = true

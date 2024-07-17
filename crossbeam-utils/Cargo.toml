@@ -16,12 +16,15 @@ categories = ["algorithms", "concurrency", "data-structures", "no-std"]
 
 [features]
 default = ["std"]
+icp = ["icps"]
 
 # Enable to use APIs that require `std`.
 # This is enabled by default.
 std = []
+icps = ["ic-time"]
 
 [dependencies]
+ic-time = { version = "0.1.0", optional = true }
 
 # Enable the use of loom for concurrency testing.
 #
