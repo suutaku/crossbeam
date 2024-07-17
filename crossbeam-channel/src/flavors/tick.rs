@@ -3,7 +3,11 @@
 //! Messages cannot be sent into this kind of channel; they are materialized on demand.
 
 use std::thread;
-use std::time::{Duration, Instant};
+use std::time::Duration;
+#[cfg(feature = "icp")]
+use ic_time::Instant;
+#[cfg(not(feature = "icp"))]
+use std::time::Instant;
 
 use crossbeam_utils::atomic::AtomicCell;
 

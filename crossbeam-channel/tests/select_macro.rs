@@ -7,7 +7,11 @@ use std::any::Any;
 use std::cell::Cell;
 use std::ops::Deref;
 use std::thread;
-use std::time::{Duration, Instant};
+use std::time::Duration;
+#[cfg(feature = "icp")]
+use ic_time::Instant;
+#[cfg(not(feature = "icp"))]
+use std::time::Instant;
 
 use crossbeam_channel::{after, bounded, never, select, select_biased, tick, unbounded};
 use crossbeam_channel::{Receiver, RecvError, SendError, Sender, TryRecvError};

@@ -1,9 +1,13 @@
 //! Interface to the select mechanism.
 
+#[cfg(feature = "icp")]
+use ic_time::Instant;
 use std::fmt;
 use std::marker::PhantomData;
 use std::mem;
-use std::time::{Duration, Instant};
+use std::time::Duration;
+#[cfg(not(feature = "icp"))]
+use std::time::Instant;
 use std::vec::Vec;
 
 use crossbeam_utils::Backoff;
@@ -1101,7 +1105,11 @@ impl<'a> Select<'a> {
     ///
     /// ```
     /// use std::thread;
-    /// use std::time::{Duration, Instant};
+    /// use std::time::Duration;
+    /// #[cfg(feature = "icp")]
+    /// use ic_time::Instant;
+    /// #[cfg(not(feature = "icp"))]
+    /// use std::time::Instant;
     /// use crossbeam_channel::{unbounded, Select};
     ///
     /// let deadline = Instant::now() + Duration::from_millis(500);

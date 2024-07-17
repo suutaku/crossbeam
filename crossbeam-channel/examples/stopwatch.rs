@@ -9,7 +9,11 @@ fn main() {
 fn main() {
     use std::io;
     use std::thread;
-    use std::time::{Duration, Instant};
+    use std::time::Duration;
+#[cfg(feature = "icp")]
+use ic_time::Instant;
+#[cfg(not(feature = "icp"))]
+use std::time::Instant;
 
     use crossbeam_channel::{bounded, select, tick, Receiver};
     use signal_hook::consts::SIGINT;

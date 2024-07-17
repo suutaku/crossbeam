@@ -1,8 +1,12 @@
 use crate::primitive::sync::atomic::{AtomicUsize, Ordering::SeqCst};
 use crate::primitive::sync::{Arc, Condvar, Mutex};
+#[cfg(feature = "icp")]
+use ic_time::Instant;
 use std::fmt;
 use std::marker::PhantomData;
-use std::time::{Duration, Instant};
+use std::time::Duration;
+#[cfg(not(feature = "icp"))]
+use std::time::Instant;
 
 /// A thread parking primitive.
 ///
@@ -136,7 +140,11 @@ impl Parker {
     /// # Examples
     ///
     /// ```
-    /// use std::time::{Duration, Instant};
+    /// use std::time::Duration;
+    // #[cfg(feature = "icp")]
+    // use ic_time::Instant;
+    // #[cfg(not(feature = "icp"))]
+    // use std::time::Instant;
     /// use crossbeam_utils::sync::Parker;
     ///
     /// let p = Parker::new();

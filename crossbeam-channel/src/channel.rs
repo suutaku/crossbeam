@@ -1,11 +1,15 @@
 //! The channel interface.
 
+#[cfg(feature = "icp")]
+use ic_time::Instant;
 use std::fmt;
 use std::iter::FusedIterator;
 use std::mem;
 use std::panic::{RefUnwindSafe, UnwindSafe};
 use std::sync::Arc;
-use std::time::{Duration, Instant};
+use std::time::Duration;
+#[cfg(not(feature = "icp"))]
+use std::time::Instant;
 
 use crate::context::Context;
 use crate::counter;
@@ -156,7 +160,11 @@ pub fn bounded<T>(cap: usize) -> (Sender<T>, Receiver<T>) {
 ///
 /// ```
 /// use std::thread;
-/// use std::time::{Duration, Instant};
+/// use std::time::Duration;
+/// #[cfg(feature = "icp")]
+/// use ic_time::Instant;
+/// #[cfg(not(feature = "icp"))]
+/// use std::time::Instant;
 /// use crossbeam_channel::after;
 ///
 /// // Converts a number of milliseconds into a `Duration`.
@@ -210,7 +218,11 @@ pub fn after(duration: Duration) -> Receiver<Instant> {
 /// When the message gets sent:
 ///
 /// ```
-/// use std::time::{Duration, Instant};
+/// use std::time::Duration;
+/// #[cfg(feature = "icp")]
+/// use ic_time::Instant;
+/// #[cfg(not(feature = "icp"))]
+/// use std::time::Instant;
 /// use crossbeam_channel::at;
 ///
 /// // Converts a number of milliseconds into a `Duration`.
@@ -285,7 +297,11 @@ pub fn never<T>() -> Receiver<T> {
 /// Using a `tick` channel to periodically print elapsed time:
 ///
 /// ```
-/// use std::time::{Duration, Instant};
+/// use std::time::Duration;
+/// #[cfg(feature = "icp")]
+/// use ic_time::Instant;
+/// #[cfg(not(feature = "icp"))]
+/// use std::time::Instant;
 /// use crossbeam_channel::tick;
 ///
 /// let start = Instant::now();
@@ -301,7 +317,11 @@ pub fn never<T>() -> Receiver<T> {
 ///
 /// ```
 /// use std::thread;
-/// use std::time::{Duration, Instant};
+/// use std::time::Duration;
+/// #[cfg(feature = "icp")]
+/// use ic_time::Instant;
+/// #[cfg(not(feature = "icp"))]
+/// use std::time::Instant;
 /// use crossbeam_channel::tick;
 ///
 /// // Converts a number of milliseconds into a `Duration`.
@@ -507,7 +527,11 @@ impl<T> Sender<T> {
     ///
     /// ```
     /// use std::thread;
-    /// use std::time::{Duration, Instant};
+    /// use std::time::Duration;
+    /// #[cfg(feature = "icp")]
+    /// use ic_time::Instant;
+    /// #[cfg(not(feature = "icp"))]
+    /// use std::time::Instant;
     /// use crossbeam_channel::{bounded, SendTimeoutError};
     ///
     /// let (s, r) = bounded(0);

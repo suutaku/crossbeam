@@ -5,7 +5,11 @@
 use std::sync::atomic::AtomicUsize;
 use std::sync::atomic::Ordering;
 use std::thread;
-use std::time::{Duration, Instant};
+use std::time::Duration;
+#[cfg(feature = "icp")]
+use ic_time::Instant;
+#[cfg(not(feature = "icp"))]
+use std::time::Instant;
 
 use crossbeam_channel::{after, select, tick, Select, TryRecvError};
 use crossbeam_utils::thread::scope;

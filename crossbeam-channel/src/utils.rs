@@ -1,9 +1,13 @@
 //! Miscellaneous utilities.
 
+#[cfg(feature = "icp")]
+use ic_time::Instant;
 use std::cell::Cell;
 use std::num::Wrapping;
 use std::thread;
-use std::time::{Duration, Instant};
+use std::time::Duration;
+#[cfg(not(feature = "icp"))]
+use std::time::Instant;
 
 /// Randomly shuffles a slice.
 pub(crate) fn shuffle<T>(v: &mut [T]) {

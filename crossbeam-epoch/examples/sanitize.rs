@@ -2,7 +2,11 @@ use std::sync::atomic::AtomicUsize;
 use std::sync::atomic::Ordering::{AcqRel, Acquire, Relaxed};
 use std::sync::Arc;
 use std::thread;
-use std::time::{Duration, Instant};
+use std::time::Duration;
+#[cfg(feature = "icp")]
+use ic_time::Instant;
+#[cfg(not(feature = "icp"))]
+use std::time::Instant;
 
 use crossbeam_epoch::{self as epoch, Atomic, Collector, LocalHandle, Owned, Shared};
 use rand::Rng;

@@ -305,7 +305,11 @@
 //! An example that prints elapsed time every 50 milliseconds for the duration of 1 second:
 //!
 //! ```
-//! use std::time::{Duration, Instant};
+//! use std::time::Duration;
+//! #[cfg(feature = "icp")]
+//! use ic_time::Instant;
+//! #[cfg(not(feature = "icp"))]
+//! use std::time::Instant;
 //! use crossbeam_channel::{after, select, tick};
 //!
 //! let start = Instant::now();
