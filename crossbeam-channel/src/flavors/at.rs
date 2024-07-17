@@ -2,8 +2,11 @@
 //!
 //! Messages cannot be sent into this kind of channel; they are materialized on demand.
 
+#[cfg(feature = "icp")]
+use ic_time::Instant;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::thread;
+#[cfg(not(feature = "icp"))]
 use std::time::Instant;
 
 use crate::context::Context;

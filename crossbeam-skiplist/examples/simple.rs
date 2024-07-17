@@ -1,4 +1,7 @@
-// use std::time::Instant;
+#[cfg(feature = "icp")]
+use ic_time::Instant;
+#[cfg(not(feature = "icp"))]
+use std::time::Instant;
 
 fn main() {
     // let map = crossbeam_skiplist::SkipMap::new();

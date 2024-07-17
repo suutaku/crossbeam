@@ -1,5 +1,10 @@
 mod message;
 
+#[cfg(feature = "icp")]
+use ic_time::Instant;
+#[cfg(not(feature = "icp"))]
+use std::time::Instant;
+
 const MESSAGES: usize = 5_000_000;
 const THREADS: usize = 4;
 
@@ -139,7 +144,7 @@ fn mpsc_bounded(cap: usize) {
 fn main() {
     macro_rules! run {
         ($name:expr, $f:expr) => {
-            let now = ::std::time::Instant::now();
+            let now = Instant::now();
             $f;
             let elapsed = now.elapsed();
             println!(

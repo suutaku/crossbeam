@@ -13,6 +13,9 @@ use std::cell::UnsafeCell;
 use std::mem::{self, MaybeUninit};
 use std::ptr;
 use std::sync::atomic::{self, AtomicUsize, Ordering};
+#[cfg(feature = "icp")]
+use ic_time::Instant;
+#[cfg(not(feature = "icp"))]
 use std::time::Instant;
 
 use crossbeam_utils::{Backoff, CachePadded};

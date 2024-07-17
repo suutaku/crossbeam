@@ -3,6 +3,9 @@
 //! Messages cannot be sent into this kind of channel.
 
 use std::marker::PhantomData;
+#[cfg(feature = "icp")]
+use ic_time::Instant;
+#[cfg(not(feature = "icp"))]
 use std::time::Instant;
 
 use crate::context::Context;

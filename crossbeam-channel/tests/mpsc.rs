@@ -195,7 +195,10 @@ mod channel_tests {
 
     use std::env;
     use std::thread;
-    use std::time::Instant;
+    #[cfg(feature = "icp")]
+use ic_time::Instant;
+#[cfg(not(feature = "icp"))]
+use std::time::Instant;
 
     fn stress_factor() -> usize {
         match env::var("RUST_TEST_STRESS") {

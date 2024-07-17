@@ -1,10 +1,13 @@
 //! Thread-local context used in select.
 
+#[cfg(feature = "icp")]
+use ic_time::Instant;
 use std::cell::Cell;
 use std::ptr;
 use std::sync::atomic::{AtomicPtr, AtomicUsize, Ordering};
 use std::sync::Arc;
 use std::thread::{self, Thread, ThreadId};
+#[cfg(not(feature = "icp"))]
 use std::time::Instant;
 
 use crossbeam_utils::Backoff;
